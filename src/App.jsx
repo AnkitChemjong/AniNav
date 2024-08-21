@@ -4,6 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import { MdMenu } from 'react-icons/md';
 import { GiCrossedBones } from "react-icons/gi";
 import { FaArrowRight } from "react-icons/fa";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Draggable } from "gsap/Draggable";
+// import { InertiaPlugin } from "gsap/InertiaPlugin";
+
+gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(Draggable);
+
+
 function App() {
   const menu=useRef();
   const mouseSVG=useRef();
@@ -146,8 +154,8 @@ useEffect(()=>{
   let interval;
   let currentIndex = 0;
   const func=()=>{
-    currentIndex = (currentIndex+1)%li.length;
     imgRef.current.src=li[currentIndex];
+    currentIndex = (currentIndex+1)%li.length;
   }
   interval=setInterval(func,1000);
 
@@ -158,6 +166,30 @@ useEffect(()=>{
 },[])
 
 
+
+
+//scrollTirgger
+useGSAP(() => {
+  gsap.from(".hi .box", {
+    opacity: 0,
+    scale: 0,
+    duration: 2,
+    rotate: 360,
+    scrollTrigger: {
+      trigger: ".hi",
+      start:"top 0%",
+      end:"top -100%",
+      scrub: 2,
+      pin:true
+   
+    },
+  });
+  Draggable.create(".hel2", {
+    bounds:'.hello',
+    type:"rotation"
+ 
+  });
+}, []);
 
 
   return (
@@ -219,6 +251,14 @@ useEffect(()=>{
     </div>
     <div className="w-[100vw] h-[100vh] relative">
       <img ref={imgRef} src="https://images.pexels.com/photos/1525041/pexels-photo-1525041.jpeg?cs=srgb&dl=pexels-francesco-ungaro-1525041.jpg&fm=jpg" className="w-[100vw] h-[100vh]" alt="" />
+    </div>
+    <div className="hi w-[100vw] h-[100vh] bg-slate-400 relative flex justify-center items-center mt-5">
+     <div className="box w-40 h-40 bg-red-600 rounded-lg  hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]"/>
+    </div>
+    <div className="hello w-[100vw] h-[100vh] bg-slate-400 relative flex justify-center items-center mt-5">
+     <div className=" hel2 w-40 h-40 bg-red-600 rounded-lg  hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
+
+     </div>
     </div>
     </>
    
