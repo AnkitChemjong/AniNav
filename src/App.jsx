@@ -7,6 +7,7 @@ import { FaArrowRight } from "react-icons/fa";
 function App() {
   const menu=useRef();
   const mouseSVG=useRef();
+  const imgRef=useRef();
 
 // const randomX=gsap.utils.random(-500,500,10)
 // const randomR=gsap.utils.random(-360,360,30)
@@ -140,6 +141,22 @@ mouseSVG.current.removeEventListener("mouseleave",func2)
 }
 },[])
 
+useEffect(()=>{
+  const li=["https://images.pexels.com/photos/1525041/pexels-photo-1525041.jpeg?cs=srgb&dl=pexels-francesco-ungaro-1525041.jpg&fm=jpg","https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp","https://world-schools.com/wp-content/uploads/2023/01/IMG-Academy-cover-WS.webp"]
+  let interval;
+  let currentIndex = 0;
+  const func=()=>{
+    currentIndex = (currentIndex+1)%li.length;
+    imgRef.current.src=li[currentIndex];
+  }
+  interval=setInterval(func,1000);
+
+  return ()=>{
+    clearInterval(interval);
+  }
+
+},[])
+
 
 
 
@@ -199,6 +216,9 @@ mouseSVG.current.removeEventListener("mouseleave",func2)
     <svg width="100%" height="400" xmlns="http://www.w3.org/2000/svg">
      <path className="hi" d="M 10 100 Q 500 100 900 100" stroke="black" fill="transparent"/>
     </svg>
+    </div>
+    <div className="w-[100vw] h-[100vh] relative">
+      <img ref={imgRef} src="https://images.pexels.com/photos/1525041/pexels-photo-1525041.jpeg?cs=srgb&dl=pexels-francesco-ungaro-1525041.jpg&fm=jpg" className="w-[100vw] h-[100vh]" alt="" />
     </div>
     </>
    
