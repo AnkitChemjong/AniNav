@@ -43,9 +43,9 @@ tl.to("#full",{
 })
 tl.from("#full h4",{
     x:150,
-    duration:0.6,
+    duration:0.7,
     opacity:0,
-    stagger:0.28,
+    stagger:0.30,
 })
 tl.from("#full i",{
     opacity:0,
